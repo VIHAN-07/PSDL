@@ -13,8 +13,6 @@ count++;
 
 if(count>=1000){ //measure upto 1000 ms i.e. 1 seconds
 Buzzer=~Buzzer; //Toggle buzzer pin
-
-
 count=0;
 }
 TMR1IF=0;
@@ -28,7 +26,7 @@ GIE=1;
 PEIE=1;
 TMR1IE=1;
 TMR1IF=0;
-/Enable 16 bit TMR1 register,no pre-scaler,internal clock,timer OFF/
+/*Enable 16 bit TMR1 register,no pre-scaler,internal clock,timer OFF*/
 T1CON=0x80;
 TMR1L=0x20;
 TMR1H=0xD1;
