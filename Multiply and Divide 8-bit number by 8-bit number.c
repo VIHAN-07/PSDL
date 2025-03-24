@@ -1,27 +1,17 @@
 #include <xc.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <pic18f4550.h>
+#include <pic18f458.h>
 
-int  mul(int num1,int num2){
-    
-    int res = 0 ;
-    for(int i = 0 ; i < num2 ; i++)
-    {
-        if(i<=num2)
-        {
-            res = res+num1 ;
-        }
-        else
-        {
-            break;
-        }
+// Multiplication function
+int mul(int num1, int num2) {
+    int res = 0;
+    for(int i = 0; i < num2; i++) {
+        res += num1;
     }
-    TRISD = 0;
-    PORTD = res ;
+    return res; // Return result instead of writing to PORTD
 }
- int  divide(int num1,int num2) {
-     
+
+// Division function
+int divide(int num1, int num2) {
     int quotient = 0;
     int remainder = num1;
 
@@ -29,14 +19,18 @@ int  mul(int num1,int num2){
         remainder -= num2;
         quotient++;
     }
-
-    TRISB = 0;
-    PORTB =  quotient;
+    return quotient; // Return result instead of writing to PORTB
 }
-void main(void)
-{
-    
-    mul(2,2);
-  divide(8,2);
-    
- }
+
+void main(void) {
+    TRISD = 0; // Set PORTD as output
+    TRISB = 0; // Set PORTB as output
+
+    int result1 = mul(2, 2);
+    int result2 = divide(8, 2);
+
+    PORTD = result1 & 0xFF; // Store only lower 8 bits
+    PORTB = result2 & 0xFF; // Store only lower 8 bits
+
+    while(1); // Infinite loop to keep output stable
+}

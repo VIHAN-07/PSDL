@@ -1,65 +1,38 @@
 #include <xc.h>
-#include<pic18f4550.h>
-#include<stdio.h>
+#include <pic18f458.h>
+
+// Configuration Bits (if required for MPLAB simulation)
+
+// Delay function
+void delay_ms(unsigned int ms) {
+    for(unsigned int i = 0; i < ms; i++) {
+        for(unsigned int j = 0; j < 300; j++) {
+            // Rough delay loop (not precise)
+        }
+    }
+}
+
 void main(void) {
-    // sorting array in ascending order  
-   /* int array[4]={4,3,2,1};
+    int array[4] = {1, 2, 3, 4}; // Array to be sorted in descending order
     
-    for(int  i = 0 ; i < 4 ; i++)
-    {
-        for(int j = 0 ; j < 3 ; j++)
-        {
-            int temp;
-            if(array[j]>array[j+1])
-            {
-                temp = array[j];
-                array[j]=array[j+1];
-                array[j+1] = temp ; 
-                
-            }
-        }
-    }
-    TRISD = 0 ;
-    for (int s = 0 ; s < 4 ; s++)
-    {
-        PORTD = array[s];
-        for(int f = 0 ; f < 1000 ; f ++)
-        {
-            for(int r = 0 ; r < 300 ; r ++)
-            {
-                
-            }
-        }
-    }
-    */
-//    sorting array in descending order.
-    int array[4] = {1,2,3,4};
-     for(int  i = 0 ; i < 4 ; i++)
-    {
-        for(int j = 0 ; j < 3 ; j++)
-        {
-            int temp;
-            if(array[j]>array[j+1])
-            {
-                temp = array[j];
-                array[j]=array[j+1];
-                array[j+1] = temp ; 
-                
-            }
-        }
-    }
-    TRISD = 0 ;
-    for (int s = 3 ; s >=0 ; s--)
-    {
-        PORTD = array[s];
-        for(int f = 0 ; f < 1000 ; f ++)
-        {
-            for(int r = 0 ; r < 300 ; r ++)
-            {
-                
+    // Descending order sorting (Bubble Sort)
+    for(int i = 0; i < 4; i++) {
+        for(int j = 0; j < 3; j++) {
+            if(array[j] < array[j+1]) {  // Change condition for descending order
+                int temp = array[j];
+                array[j] = array[j+1];
+                array[j+1] = temp;
             }
         }
     }
     
-    return;
+    TRISD = 0; // Set PORTD as output
+
+    // Display sorted values on PORTD
+    for (int s = 0; s < 4; s++) {
+        PORTD = array[s]; // Output sorted value to PORTD
+        delay_ms(500);    // Delay for better visibility
+    }
+    
+    while(1); // Keep the program running
 }
